@@ -1,0 +1,15 @@
+<!-- reservation/templates/reservation/reservation_success.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Réservations</h2>
+    {% if reservations %}
+        <ul>
+            {% for reservation in reservations %}
+                <li>{{ reservation }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune réservation pour le moment.</p>
+    {% endif %}
+{% endblock %}

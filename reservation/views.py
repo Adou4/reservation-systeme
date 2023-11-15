@@ -1,9 +1,10 @@
 # reservation/views.py
 from django.shortcuts import render, redirect
 from .forms import ReservationForm
+from .models import Reservation
 
 
-def make_reservation(request):
+def reservation(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -13,8 +14,9 @@ def make_reservation(request):
             return redirect('reservation_success')
     else:
         form = ReservationForm()
-    return render(request, 'reservation/make_reservation.html', {'form': form})
+    return render(request, 'reservation/templates/reservation.html', {'form': form})
 
 
 def reservation_success(request):
-    return render(request, 'reservation/reservation_success.html')
+    reservations = Reservation.objects.filter(user=request.user)
+    return render(request, 'reservation/templates/reservation_success.html', {'reservations': reservations})
